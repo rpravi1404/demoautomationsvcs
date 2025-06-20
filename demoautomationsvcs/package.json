@@ -1,0 +1,23 @@
+{
+  "name": "demoautomationsvcs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:api": "jest tests/api/",
+    "test:ui": "playwright test",
+    "test": "npm run test:api && npm run test:ui",
+    "test:parallel": "npm run test:api & npm run test:ui & wait"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.53.1",
+    "@types/node": "^24.0.3"
+  },
+  "dependencies": {
+    "axios": "^1.10.0",
+    "jest": "^30.0.2"
+  }
+}
