@@ -1,0 +1,54 @@
+name: Run Tests and Deploy Allure Report
+
+on:
+  workflow_dispatch:
+    inputs:
+      test-type:
+        description: 'Select which tests to run'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - ui
+          - api
+          - all
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run selected tests
+        run: |
+          echo "Running ${{ github.event.inputs['test-type'] }} tests..."
+
+          if [ "${{ github.event.inputs['test-type'] }}" = "ui" ]; then
+            npm run test:ui
+          elif [ "${{ github.event.inputs['test-type'] }}" = "api" ]; then
+            npm run test:api
+          else
+            npm run test
+          fi
+
+      - name: Generate Allure report
+        run: |
+          npm install -g allure-commandline
+          allure generate allure-results --clean -o allure-report
+
+      - name: Deploy Allure report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-report
+          publish_branch: gh-pages
