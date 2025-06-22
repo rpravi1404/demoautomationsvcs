@@ -1,6 +1,6 @@
 const ApiHelpers = require('../../utils/apiHelpers');
 
-let bookingId = 3657;
+let bookingId = null;
 let firstname = null; 
 let lastname = null;
 let checkinDate = null;
