@@ -1,3 +1,5 @@
+const chance = require('chance');
+
 class CheckoutPage  {
 
     constructor(page) {
@@ -11,10 +13,10 @@ class CheckoutPage  {
     }
 
     async fillBookingForm() {
-        await this.firstNameInput.fill('John');
-        await this.lastNameInput.fill('Doe');
-        await this.emailInput.fill('john.doe@example.com');
-        await this.phoneInput.fill('12345678901');
+        await this.firstNameInput.fill(chance.first());
+        await this.lastNameInput.fill(chance.last());
+        await this.emailInput.fill(chance.email());
+        await this.phoneInput.fill(chance.phone());
         await this.reserveNowButton.click();
     }
 
