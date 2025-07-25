@@ -1,4 +1,5 @@
-const chance = require('chance');
+const Chance = require('chance');
+const chance = new Chance();
 
 class CheckoutPage  {
 
